@@ -1,10 +1,3 @@
-//
-//  Todo_ListApp.swift
-//  Todo List
-//
-//  Created by Mohamed Badir on 28/07/2023.
-//
-
 import SwiftUI
 
 @main
