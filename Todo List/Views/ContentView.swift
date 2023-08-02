@@ -2,33 +2,17 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var todos = [
-        Todo(title: "read", subtitle: "20 pages"),
-        Todo(title: "water the plants"),
-        Todo(title: "drink water")
-    ]
-    @State private var showAddSheet = false
+@StateObject var todoManager = TodoManager()
     var body: some View {
-        NavigationStack {
-            List($todos, editActions: [.all]) { $todo in
-                TodoRowView(todo: $todo)
-            }
-            .navigationTitle("Todo")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    EditButton()
+        TabView{
+            MainTodoListView(todoManager: todoManager)
+                .tabItem{
+                    Label("Todos", systemImage: "list.bullet.clipboard.fill")
                 }
-                ToolbarItem(placement: .navigationBarTrailing){
-                    Button{
-                        showAddSheet = true
-                    } label: {
-                        Image(systemName: "plus")
-                    }
+            HowManyMoreView(todoManager: todoManager)
+                .tabItem{
+                    Label("Tasks Remaining", systemImage: "number.circle")
                 }
-            }
-            .sheet(isPresented: $showAddSheet){
-                NewTodoView(sourceArray: $todos)
-            }
         }
     }
 }
